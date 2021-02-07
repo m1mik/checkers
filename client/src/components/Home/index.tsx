@@ -37,9 +37,7 @@ const Home = () => {
     [classes]
   );
 
-  const drawCell = useCallback((cell: Cell) => <CellComp cell={cell} />, [
-    classes,
-  ]);
+  const drawCell = useCallback((cell: Cell) => <CellComp cell={cell} />, []);
 
   return (
     <div className={classes.homePage}>

@@ -19,9 +19,9 @@ export default class Cell {
    */
   public static pointToArrayIndex = (point: string) => {
     if (!/^[a-h][1-8]$/.test(point))
-      return {
-        message: `Invalid format in "pointToArrayIndex":\n${point} doesn't match with regexp.`,
-      };
+      throw new Error(
+        `Invalid format in "pointToArrayIndex":\n${point} doesn't match with regexp.`
+      );
     const row = point.charCodeAt(0) - A_CHAR_CODE;
     const column = parseInt(point[1], 10) - 1;
 

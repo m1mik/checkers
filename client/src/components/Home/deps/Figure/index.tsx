@@ -1,6 +1,8 @@
 import React from "react";
 import Figure from "@models/Figure";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
+import { setDragParentCell } from "@store/actions/game";
 import BlackPawn from "@assets/black-pawn.svg";
 import WhitePawn from "@assets/white-pawn.svg";
 import WhiteKing from "@assets/white-king.svg";
@@ -15,6 +17,7 @@ const useStyles = makeStyles(styles);
 
 const FigureComp = ({ info: { color, id, isQueen } }: FigureProps) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const description = `${color === WHITE ? WHITE : BLACK}-${
     isQueen ? "queen" : "pawn"
@@ -30,10 +33,13 @@ const FigureComp = ({ info: { color, id, isQueen } }: FigureProps) => {
 
   return (
     <img
-      onDragStart={(e: React.DragEvent<HTMLImageElement>) =>
-        console.log(`dragged ${e.currentTarget.id}`)
-      }
-      onDrop={(e: any) => console.log(`image drop ${e.currentTarget.id}`)}
+      onDragStart={(e: React.DragEvent<HTMLImageElement>) => {
+        console.log(`dragged ${e.currentTarget.id}`);
+        dispatch(
+          setDragParentCell((e.currentTarget.parentElement as HTMLElement).id)
+        );
+      }}
+      draggable
       className={classes.img}
       id={id}
       src={src}
